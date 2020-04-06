@@ -532,17 +532,14 @@ interface IOptions {
     wordBreak?: WORD_BREAK;
 }
 
-const cssFormattedClasses = (
-    codePoints: number[],
-    options?: IOptions
-): [number[], number[], boolean[] | undefined] => {
+const cssFormattedClasses = (codePoints: number[], options?: IOptions): [number[], number[], boolean[] | undefined] => {
     if (!options) {
         options = {lineBreak: 'normal', wordBreak: 'normal'};
     }
     let [indicies, classTypes, isLetterNumber] = codePointsToCharacterClasses(codePoints, options.lineBreak);
 
     if (options.wordBreak === 'break-all' || options.wordBreak === 'break-word') {
-        classTypes = classTypes.map(type => ([NU, AL, SA].indexOf(type) !== -1 ? ID : type));
+        classTypes = classTypes.map((type) => ([NU, AL, SA].indexOf(type) !== -1 ? ID : type));
     }
 
     const forbiddenBreakpoints =
