@@ -7,7 +7,10 @@
   "typings": "dist/types/index.d.ts",
   "scripts": {
     "prebuild": "rimraf dist/",
-    "build": "tsc --module commonjs && rollup -c rollup.config.ts",
+    "build": "npm run build:cjs && npm run build:esm && npm run build:bundle",
+    "build:cjs": "tsc -m commonjs --outdir dist/lib",
+    "build:esm": "tsc -m es6 --outdir dist/lib-esm",
+    "build:bundle": "rollup -c rollup.config.ts",
     "format": "prettier --write \"{src,scripts}/**/*.ts\"",
     "lint": "tslint -c tslint.json --project tsconfig.json -t codeFrame src/**/*.ts tests/**/*.ts scripts/**/*.ts",
     "generate-trie": "ts-node scripts/generate_line_break_trie.ts",
